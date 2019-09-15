@@ -1,44 +1,67 @@
 def welcome
-  # code #welcome here
+ puts "Welcome to the Blackjack Table"
 end
 
 def deal_card
-  # code #deal_card here
+  p rand(1..10)
 end
 
-def display_card_total
-  # code #display_card_total here
+def display_card_total(card_total)
+  puts "Your cards add up to #{card_total}"
 end
 
 def prompt_user
-  # code #prompt_user here
+  puts "Type 'h' to hit or 's' to stay"
 end
 
 def get_user_input
-  # code #get_user_input here
+  gets.chomp
 end
 
-def end_game
-  # code #end_game here
+def end_game(card_total)
+  puts "Sorry, you hit #{card_total}. Thanks for playing!"
+  
 end
 
 def initial_round
-  # code #initial_round here
+  num = deal_card + deal_card
+  display_card_total(num)
+  return num 
 end
 
-def hit?
-  # code hit? here
+def hit?(number)
+  result = number
+  prompt_user
+  input = get_user_input
+  if input == "h"
+    result += deal_card
+    
+    return result
+  elsif input != "h" and input != "s"
+    invalid_command
+    
+    hit?(number)
+  else
+    return result
+  end
 end
 
 def invalid_command
-  # code invalid_command here
+  puts "Please enter a valid command"
+  
 end
 
 #####################################################
-# get every test to pass before coding runner below #
+# get every test to passs before coding runner below #
 #####################################################
 
 def runner
-  # code runner here
+  welcome
+  num = initial_round
+  until num > 21 do
+    num = hit?(num)
+    display_card_total(num)
+  end
+  end_game(num)
 end
     
